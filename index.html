@@ -1,0 +1,180 @@
+<!-- end list -->
+
+HTML
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品カタログ</title>
+  <style>
+    /* ここにCSSスタイルを記述 */
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
+    h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+    #search-container { text-align: center; margin-bottom: 20px; }
+        #search-input { padding: 10px; width: 300px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em; }
+button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer; font-size: 1em; margin-left: 10px; }
+button:hover { background-color: #0056b3; }
+#product-list-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: center; /* 中央寄せ /
+gap: 20px; / カード間のスペース /
+padding: 20px 0;
+}
+.product-card {
+border: 1px solid #e0e0e0;
+border-radius: 10px;
+padding: 20px;
+width: 280px; / カードの幅 /
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+text-align: center;
+background-color: #ffffff;
+transition: transform 0.2s ease-in-out;
+}
+.product-card:hover {
+transform: translateY(-5px);
+}
+.product-card img {
+max-width: 100%;
+height: 200px; / 画像の高さを固定 /
+object-fit: cover; / 画像の比率を維持しつつ、指定サイズに収める /
+border-radius: 5px;
+margin-bottom: 15px;
+}
+.product-card h3 {
+font-size: 1.3em;
+margin-bottom: 8px;
+color: #2c3e50;
+}
+.product-card .price {
+font-size: 1.2em;
+color: #e67e22;
+font-weight: bold;
+margin-bottom: 10px;
+}
+.product-card .description {
+font-size: 0.9em;
+color: #7f8c8d;
+margin-bottom: 15px;
+line-height: 1.5;
+min-height: 45px; / 説明文の高さが短い場合にカードの高さを揃える /
+overflow: hidden; / 高さを超える場合は隠す /
+text-overflow: ellipsis; / 省略記号 /
+}
+.product-card .stock {
+font-size: 0.85em;
+font-weight: bold;
+padding: 5px 10px;
+border-radius: 4px;
+display: inline-block; / インラインブロックで背景色をテキストに合わせる /
+}
+.stock.hidden { background-color: #f39c12; color: white; } / 在庫なしを目立たせる /
+.stock.visible { background-color: #27ae60; color: white; } / 在庫あり */
+.loading-message { text-align: center; padding: 50px; font-size: 1.2em; color: #555; }
+.error-message { text-align: center; padding: 50px; font-size: 1.2em; color: #e74c3c; }
+</style>
+</head>
+<body>
+
+  <h1>商品カタログ</h1>
+
+  <div id="search-container">
+    <input type="text" id="search-input" placeholder="商品名や説明で検索...">
+    <button onclick="searchProducts()">検索</button>
+  </div>
+
+  <div id="product-list-container">
+    <p class="loading-message">商品を読み込み中です...</p>
+  </div>
+
+  <script>
+    // ★重要★ ここにステップ1でコピーしたGASウェブアプリのURLを貼り付ける
+    const WEB_APP_API_URL = 'https://script.google.com/macros/s/AKfycbwmb4GfChIkQNvzKM0rqC_jsIPvDH7EDkTrK-RYNCxpeGHoA9f_d-J6nWkF43XJsm2v/exec';
+
+    async function loadProducts(category = '', subCategory = '', searchTerm = '') {
+      const container = document.getElementById('product-list-container');
+      container.innerHTML = '<p class="loading-message">商品を読み込み中です...</p>';
+
+      console.log("--- loadProducts function started (GitHub Pages) ---");
+      console.log("API URL:", WEB_APP_API_URL);
+
+      // APIリクエストのURLを構築（クエリパラメータを追加）
+      let url = new URL(WEB_APP_API_URL);
+      if (category) url.searchParams.append('category', category);
+      if (subCategory) url.searchParams.append('subCategory', subCategory);
+      if (searchTerm) url.searchParams.append('searchTerm', searchTerm);
+
+      try {
+        // GAS APIからデータを取得
+        const response = await fetch(url.toString());
+
+        // HTTPレスポンスが正常（statusが200番台）でなければエラーを投げる
+        if (!response.ok) {
+          const errorText = await response.text(); // エラーメッセージも取得
+          throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+
+        // レスポンスをJSONとして解析
+        const data = await response.json();
+
+        console.log("JSON data received:", data);
+
+        // ローディングメッセージをクリア
+        container.innerHTML = '';
+        
+        // データが空の場合のメッセージ
+        if (data.length === 0) {
+          container.innerHTML = '<p class="loading-message">該当する商品が見つかりませんでした。</p>';
+          console.log("No products found.");
+          return;
+        }
+
+        // 商品カードをレンダリング
+        data.forEach(function(product) {
+          // Googleドライブの画像URLを直接表示可能な形式に変換する処理
+          let imageUrl = product.画像URL;
+          // ドライブのビューアURLを直接ダウンロード/表示可能なURLに変換
+          if (imageUrl && imageUrl.includes('drive.google.com/file/d/')) {
+              imageUrl = imageUrl.replace('/view', '?export=download');
+              imageUrl = imageUrl.replace('/file/d/', '/uc?id=');
+          }
+          // uc?id=形式でresizeパラメータを使う場合（例：画像サイズを制御したい場合）
+          if (imageUrl && imageUrl.includes('/uc?id=')) {
+              // 例: 幅500px、高さ500pxにリサイズして表示（アスペクト比を維持しつつ、小さい方に合わせる）
+              // imageUrl += '&sz=w500-h500';
+              // あるいは、画像を完全に埋め込みたい場合（非推奨、ファイルサイズが大きい）
+              // imageUrl += '&thumb=1'; // サムネイルではなく、オリジナル画像
+          }
+
+
+          console.log("Rendering product:", product.商品名, "Final Image URL:", imageUrl);
+          const productCard = `
+            <div class="product-card">
+              <img src="<span class="math-inline">\{imageUrl\}" alt\="</span>{product.商品名}">
+              <h3><span class="math-inline">\{product\.商品名\}</h3\>
+<p class="price">{product.価格} 円</p>
+<p class="description">${product.商品説明}</p>
+<p class="stock ${product.表示状態 === '非表示' ? 'hidden' : 'visible'}">在庫: product.現在の在庫数({product.表示状態})</p>
+</div>
+; container.innerHTML += productCard; }); } catch (error) { container.innerHTML =<p class="error-message">商品の読み込み中にエラーが発生しました: ${error.message}</p>`;
+console.error("Fetch Error caught (GitHub Pages):", error);
+}
+}
+
+    // ページ読み込み時に実行される関数
+    window.onload = function() {
+      console.log("window.onload event fired (GitHub Pages).");
+      loadProducts(); // 初期表示として全商品を読み込みます
+    };
+
+    // 検索ボタンがクリックされたときに実行される関数
+    function searchProducts() {
+      const searchTerm = document.getElementById('search-input').value;
+      loadProducts('', '', searchTerm); // カテゴリとサブカテゴリは空で検索語のみ渡す
+    }
+  </script>
+</body>
+</html>
+```
