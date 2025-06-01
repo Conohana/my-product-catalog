@@ -131,19 +131,23 @@
         // 商品カードをレンダリング
         data.forEach(function(product) {
           // Googleドライブの画像URLを直接表示可能な形式に変換する処理
-          let imageUrl = product.画像URL;
-          // ドライブのビューアURLを直接ダウンロード/表示可能なURLに変換
-          if (imageUrl && imageUrl.includes('drive.google.com/file/d/')) {
-              imageUrl = imageUrl.replace('/view', '?export=download');
-              imageUrl = imageUrl.replace('/file/d/', '/uc?id=');
-          }
-          // uc?id=形式でresizeパラメータを使う場合（例：画像サイズを制御したい場合）
-          if (imageUrl && imageUrl.includes('/uc?id=')) {
-              // 例: 幅500px、高さ500pxにリサイズして表示（アスペクト比を維持しつつ、小さい方に合わせる）
-              // imageUrl += '&sz=w500-h500';
-              // あるいは、画像を完全に埋め込みたい場合（非推奨、ファイルサイズが大きい）
-              // imageUrl += '&thumb=1'; // サムネイルではなく、オリジナル画像
-          }
+let imageUrl = product.画像URL;
+if (imageUrl && imageUrl.includes('drive.google.com/')) {
+    // Google DriveのファイルIDを抽出
+    // drive.google.com/file/d/FILE_ID/view や drive.google.com/uc?id=FILE_ID のどちらにも対応
+    const match = imageUrl.match(/id=([a-zA-Z0-9_-]+)/) || imageUrl.match(/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+        const fileId = match[1];
+        // lh3.googleusercontent.com ドメインを使って直接埋め込み可能なURLを生成
+        // これがウェブページへの画像埋め込みで最も信頼性が高い形式の一つです。
+        imageUrl = `https://lh3.googleusercontent.com/d/${fileId}`;
+        // 必要であれば、末尾に =wXXX-hYYY などのサイズ指定を追加できます
+        // 例：imageUrl += '=w300-h200-c'; // 幅300px、高さ200pxでクロップして中央寄せ
+    } else {
+        // IDが見つからない場合、元のURLを保持（警告をコンソールに出力）
+        console.warn("Google Drive URLからファイルIDを抽出できませんでした:", product.画像URL);
+    }
+}
 
 
           console.log("Rendering product:", product.商品名, "Final Image URL:", imageUrl);
