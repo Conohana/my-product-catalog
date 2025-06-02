@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カテゴリー一覧 - スーパーさかや店内 木花SHOP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0056b3;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .nav-links a {
+            display: block;
+            margin: 5px 10px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .category-item {
+            background-color: #e9f5ff;
+            border: 1px solid #cce5ff;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            cursor: pointer;
+            font-weight: bold;
+            color: #0056b3;
+            text-decoration: none; /* aタグのように振る舞うので下線を消す */
+        }
+        .category-item:hover {
+            background-color: #d0e8ff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .loading-message, .error-message, .no-categories-message {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.2em;
+            color: #007bff;
+        }
+        .error-message {
+            color: #dc3545;
+        }
+        .no-categories-message {
+            color: #888;
+        }
+        .back-to-top {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .back-to-top a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .back-to-top a:hover {
+            background-color: #5a6268;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            font-size: 0.8em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>カテゴリー一覧</h1>
+
+        <div class="nav-links">
+            <a href="index.html">トップページ</a>
+            <a href="cart.html">カートを見る</a>
+            <a href="order_guide.html">ご注文方法</a>
+            <a href="access_info.html">アクセス</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxMQTfuQFwCC8PTvpuKmYSa33HtbFeCB066W36ZjCaPDwL0g/viewform?usp=sharing&ouid=106949621401010090837" target="_blank">お問い合わせ</a>
+        </div>
+
+        <h2>すべてのカテゴリー</h2>
+        <div id="category-list-container" class="category-list">
+            <p class="loading-message">カテゴリーを読み込み中...</p>
+        </div>
+        <p id="no-categories-message" class="no-categories-message" style="display: none;">登録されているカテゴリーはありません。</p>
+        <p id="error-message" class="error-message" style="display: none;">カテゴリーの読み込み中にエラーが発生しました。時間をおいてお試しください。</p>
+
+        <div class="back-to-top">
+            <a href="index.html">トップページに戻る</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 木花SHOP. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ★【重要】ここにあなたのGASウェブアプリのURLを貼り付けてください！★
+        const WEB_APP_API_URL = 'https://script.google.com/macros/s/AKfycbwmb4GfChIkQNvzKM0rqC_jsIPvDH7EDkTrK-RYNCxpeGHoA9f_d-J6nWkF43XJsm2v/exec'; 
+
+        const categoryListContainer = document.getElementById('category-list-container');
+        const loadingMessage = document.querySelector('.loading-message');
+        const noCategoriesMessage = document.getElementById('no-categories-message');
+        const errorMessage = document.getElementById('error-message');
+
+        async function fetchCategories() {
+            try {
+                // type=categories パラメータでカテゴリ一覧をリクエスト
+                const response = await fetch(`${WEB_APP_API_URL}?type=categories`); 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const categories = await response.json();
+
+                loadingMessage.style.display = 'none'; // ロード中メッセージを非表示
+
+                if (categories.length === 0) {
+                    noCategoriesMessage.style.display = 'block'; // カテゴリなしメッセージを表示
+                    return;
+                }
+
+                categoryListContainer.innerHTML = ''; // 既存のメッセージをクリア
+                categories.forEach(category => {
+                    const categoryItem = document.createElement('a'); // aタグとして作成
+                    categoryItem.href = `products.html?category=${encodeURIComponent(category)}`; // products.htmlへ遷移
+                    categoryItem.className = 'category-item';
+                    categoryItem.textContent = category; // カテゴリ名を表示
+                    categoryListContainer.appendChild(categoryItem);
+                });
+
+            } catch (error) {
+                console.error('カテゴリーの取得中にエラーが発生しました:', error);
+                loadingMessage.style.display = 'none'; // ロード中メッセージを非表示
+                errorMessage.style.display = 'block'; // エラーメッセージを表示
+            }
+        }
+
+        fetchCategories();
+    </script>
+</body>
+</html>
