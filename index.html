@@ -167,6 +167,47 @@
         .contact-button:hover {
             background-color: #218838; /* ホバー時の色 */
         }
+    /* ★追加: 大カテゴリボタン群のスタイル★ */
+        .main-category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px; /* ボタン間のスペース */
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .main-category-buttons a {
+            flex: 1 1 auto; /* ボタンが自動的に伸縮し、複数行に折り返す */
+            max-width: 300px; /* 最大幅を設定して大きくなりすぎないように */
+            padding: 20px 15px;
+            background-color: #17a2b8; /* 青緑色 */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .main-category-buttons a:hover {
+            background-color: #138496;
+        }
+        /* ★全カテゴリーを見るボタンのスタイル (変更なし)★ */
+        .all-categories-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        .all-categories-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .all-categories-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
