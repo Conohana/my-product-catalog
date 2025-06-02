@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スーパーさかや店内 木花SHOP 商品カタログ</title> <style>
+    <title>スーパーさかや店内 木花SHOP 商品カタログ</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -19,48 +20,44 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        /* ★修正: ヘッダーを中央寄せにするためのスタイルとレスポンシブ対応★ */
         h1 {
             color: #0056b3;
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
             margin-top: 30px;
-            text-align: center; /* 中央寄せ */
-            font-size: 1.8em; /* 基本フォントサイズ */
+            text-align: center;
+            font-size: 1.8em;
         }
-        /* モバイル向けにh1のフォントサイズを調整 */
         @media (max-width: 600px) {
             h1 {
-                font-size: 1.5em; /* 小さめの画面ではフォントを小さく */
+                font-size: 1.5em;
             }
         }
-
         h2 {
             color: #0056b3;
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
             margin-top: 30px;
         }
-        /* ★修正: タブメニューのスタイルを調整 (中央寄せ・折り返し)★ */
         .nav-links {
-            display: flex; /* 横並びにする */
-            justify-content: center; /* 中央揃え */
-            flex-wrap: wrap; /* 画面幅が狭い場合に折り返す */
-            margin-bottom: 30px; /* 下にスペース */
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
             border-bottom: 1px solid #eee;
             padding-bottom: 15px;
         }
         .nav-links a {
-            display: block; /* ボックス要素にする */
-            margin: 5px 10px; /* 上下の余白も追加 */
-            padding: 12px 20px; /* 上下左右のパディング */
+            display: block;
+            margin: 5px 10px;
+            padding: 12px 20px;
             background-color: #007bff;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
             font-weight: bold;
-            white-space: nowrap; /* 折り返しを防ぐ */
+            white-space: nowrap;
         }
         .nav-links a:hover {
             background-color: #0056b3;
@@ -78,11 +75,15 @@
             padding: 15px;
             text-align: center;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            cursor: pointer; 
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .product-card img {
             max-width: 100%;
-            height: 150px; /* 固定高さ */
-            object-fit: contain; /* アスペクト比を維持して収める */
+            height: 150px;
+            object-fit: contain;
             border-bottom: 1px solid #eee;
             margin-bottom: 10px;
         }
@@ -119,13 +120,12 @@
             font-size: 1.2em;
             color: #007bff;
         }
-        /* ★修正: 店舗情報セクションのスタイルを調整 (中央寄せ)★ */
         .shop-info-footer {
             margin-top: 50px;
             padding: 20px;
             background-color: #e9ecef;
             border-radius: 8px;
-            text-align: center; /* 中央寄せ */
+            text-align: center;
             color: #495057;
         }
         .shop-info-footer h2 {
@@ -133,8 +133,8 @@
             border-bottom: 1px solid #ced4da;
             padding-bottom: 10px;
             margin-top: 0;
-            display: inline-block; /* h2自体を中央寄せするためにブロック要素として扱う */
-            margin-bottom: 15px; /* 下に余白 */
+            display: inline-block;
+            margin-bottom: 15px;
         }
         .shop-info-footer p {
             margin-bottom: 5px;
@@ -147,7 +147,6 @@
             font-size: 0.8em;
             color: #777;
         }
-        /* ★お問い合わせフォームボタンのスタイルを追加・調整★ */
         .contact-button-container {
             text-align: center;
             margin: 30px 0;
@@ -155,19 +154,20 @@
         .contact-button {
             display: inline-block;
             padding: 15px 30px;
-            background-color: #28a745; /* 緑色のボタン */
+            background-color: #28a745;
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-size: 1.2em;
             font-weight: bold;
             transition: background-color 0.3s ease;
-            white-space: nowrap; /* ボタン内のテキストが折り返さないように */
+            white-space: nowrap;
         }
         .contact-button:hover {
-            background-color: #218838; /* ホバー時の色 */
+            background-color: #218838;
         }
-    /* ★追加: 大カテゴリボタン群のスタイル★ */
+
+        /* ★追加: 大カテゴリボタン群のスタイル★ */
         .main-category-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -212,9 +212,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>スーパーさかや店内<br>木花SHOP 商品カタログ</h1> <div class="nav-links">
-            <a href="categories.html">カテゴリー一覧</a>
-            <a href="cart.html">カートを見る</a>
+        <h1>スーパーさかや店内<br>木花SHOP 商品カタログ</h1>
+
+        <div class="nav-links">
+            <a href="categories.html">カテゴリー一覧</a> <a href="cart.html">カートを見る</a>
             <a href="order_guide.html">ご注文方法</a>
             <a href="access_info.html">アクセス</a>
             <a href="【ここにあなたのGoogleフォームのURLを貼り付け】" target="_blank">お問い合わせ</a> 
@@ -229,8 +230,17 @@
         <h2 id="news-section">お知らせ</h2>
         <div id="news-section-content">
             <p>お知らせを読み込み中...</p>
-            </div>
+        </div>
 
+        <h2 id="main-categories-section">主要カテゴリーから探す</h2> <p style="text-align: center;">気になるカテゴリーの商品をご覧ください。</p>
+        <div class="main-category-buttons">
+            <a href="products.html?category=食品">食品</a>
+            <a href="products.html?category=雑貨･日用品">雑貨･日用品</a>
+            <a href="products.html?category=ペット">ペット</a>
+        </div>
+        <p class="all-categories-link">
+            <a href="categories.html">すべてのカテゴリーを見る ></a>
+        </p>
         <h2 id="contact-info">お問い合わせ</h2>
         <p>
             下記のお問い合わせフォームより、お気軽にお問い合わせください。<br>
@@ -258,80 +268,55 @@
     </div>
 
     <footer>
-        <p>© 2025 木花SHOP. All rights reserved.</p> </footer>
+        <p>© 2025 木花SHOP. All rights reserved.</p>
+    </footer>
 
     <script>
-        // ★ここにあなたのGASウェブアプリのURLを貼り付けてください！★
+        // ★【重要】ここにあなたのGASウェブアプリのURLを貼り付けてください！★
         const WEB_APP_API_URL = 'https://script.google.com/macros/s/AKfycbwmb4GfChIkQNvzKM0rqC_jsIPvDH7EDkTrK-RYNCxpeGHoA9f_d-J6nWkF43XJsm2v/exec'; // 例: https://script.google.com/macros/s/AKfycbwmb4GfChIkQNvzKM0rqC_jsIPvDH7EDkTrK-RYNCxpeGHoA9f_d-J6nWkF43XJsm2v/exec
 
         const newProductsContainer = document.getElementById('new-products-container');
         const noNewProductsMessage = document.getElementById('no-new-products');
         const loadingMessage = document.querySelector('#new-products-container .loading');
-
-        // ★お知らせ表示用のDOM要素を取得★
         const newsSectionContent = document.getElementById('news-section-content');
 
         async function fetchNewProducts() {
             try {
-                // limit=6 を追加して、新着商品を6件だけ取得
-                // type=products を追加して、GAS側で商品データを返すように指定
                 const response = await fetch(`${WEB_APP_API_URL}?type=products&limit=6`); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const products = await response.json();
 
-                loadingMessage.style.display = 'none'; // ローディングメッセージを非表示に
+                loadingMessage.style.display = 'none';
 
                 if (products.length === 0) {
-                    noNewProductsMessage.style.display = 'block'; // 商品がないメッセージを表示
+                    noNewProductsMessage.style.display = 'block';
                     return;
                 }
 
-                newProductsContainer.innerHTML = ''; // 既存の「読み込み中」メッセージなどをクリア
+                newProductsContainer.innerHTML = ''; 
                 products.forEach(product => {
                     const productCard = document.createElement('div');
                     productCard.className = 'product-card';
+                    productCard.addEventListener('click', () => {
+                        // クリックされた商品のカテゴリーをURLパラメータとしてproducts.htmlに渡す
+                        window.location.href = `products.html?category=${encodeURIComponent(product.カテゴリー)}`;
+                    });
 
-                    // Googleドライブの画像URLを直接表示可能な形式に変換する処理
                     let imageUrl = product.画像URL;
-                    // Google Driveの共有URLからファイルIDを抽出し、直接表示可能なURLに変換
-                    // `uc` パラメータはキャッシュ制御のため、`id` パラメータはファイルID
-                    // `export=download` はダウンロードリンクになるので、`thumbnail` や `view` を使うか、
-                    // lh3.googleusercontent.com ドメインの直接参照を使う
                     if (imageUrl && imageUrl.includes('drive.google.com/')) {
                         const match = imageUrl.match(/id=([a-zA-Z0-9_-]+)/) || imageUrl.match(/file\/d\/([a-zA-Z0-9_-]+)/);
                         if (match && match[1]) {
                             const fileId = match[1];
-                            // 直接表示可能なGoogle DriveのサムネイルURLを使用 (小さい画像の場合)
-                            // あるいは、Googleアカウントのプロフィール画像と同じドメインで直接参照
-                            // 注意: これは公式のAPIではないため、将来的に動作しなくなる可能性があります。
-                            // より確実なのはGASで doGet から画像をプロキシする方法です。
-                            imageUrl = `https://lh3.googleusercontent.com/d/${fileId}=s220`; // s220 は幅指定の例
-                            // もし元の画像サイズで表示したい場合や、上記で表示されない場合は、
-                            // GASで doGet を介して画像を返すプロキシを使う必要があります。
+                            imageUrl = `https://lh3.googleusercontent.com/d/${fileId}=s220`; 
                         } else {
                             console.warn("Google Drive URLからファイルIDを抽出できませんでした:", product.画像URL);
-                            imageUrl = 'placeholder.png'; // 失敗した場合のフォールバック
+                            imageUrl = 'placeholder.png'; 
                         }
                     }
-                    
-                    // 画像が取得できない場合のフォールバック（もしimageUrlが空だった場合）
-                    // placeholder.png は、あなたのサイトに用意した代替画像ファイル名に置き換える必要があります。
-                    // 例: `<img src="images/no_image.png" alt="画像なし">`
+
                     const imageHtml = imageUrl ? `<img src="<span class="math-inline">\{imageUrl\}" alt\="</span>{product.商品名}" onerror="this.onerror=null;this.src='placeholder.png';">` : '<img src="placeholder.png" alt="画像なし">'; 
 
                     productCard.innerHTML = `
                         <span class="math-inline">\{imageHtml\}
-<h3\></span>{product.商品名}</h3>
-                        <p class="price">価格: ${product.価格}円</p>
-                        <p class="stock ${product.表示状態 === '非表示' ? 'hidden' : 'visible'}">在庫: <span class="math-inline">\{product\.現在の在庫数\} \(</span>{product.表示状態})</p>
-                    `;
-                    newProductsContainer.appendChild(productCard);
-                });
-
-            } catch (error) {
-                console.error('新着商品の取得中にエラーが発生しました:', error);
-                newProductsContainer.innerHTML = `<p class="no-products">新着商品を読み込めませんでした。時間をおいてお試しください。</p>`;
-            }
-        }
