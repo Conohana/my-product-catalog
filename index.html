@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>あなたのサイト名 - トップページ</title>
-    <style>
+    <title>スーパーさかや店内 木花SHOP 商品カタログ</title> <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -26,15 +25,26 @@
             padding-bottom: 10px;
             margin-top: 30px;
         }
+        /* ★タブメニューのスタイルを少し調整★ */
+        .nav-links {
+            display: flex; /* 横並びにする */
+            justify-content: center; /* 中央揃え */
+            flex-wrap: wrap; /* 画面幅が狭い場合に折り返す */
+            margin-bottom: 30px; /* 下にスペース */
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
         .nav-links a {
-            display: inline-block;
-            margin-right: 20px;
-            padding: 10px 15px;
+            display: block; /* ボックス要素にする */
+            margin: 5px 10px; /* 上下の余白も追加 */
+            padding: 12px 20px; /* 上下左右のパディング */
             background-color: #007bff;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            font-weight: bold;
+            white-space: nowrap; /* 折り返しを防ぐ */
         }
         .nav-links a:hover {
             background-color: #0056b3;
@@ -93,10 +103,28 @@
             font-size: 1.2em;
             color: #007bff;
         }
+        /* ★店舗情報セクションのスタイルを追加・更新★ */
+        .shop-info-footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            text-align: left;
+            color: #495057;
+        }
+        .shop-info-footer h2 {
+            color: #0056b3;
+            border-bottom: 1px solid #ced4da;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .shop-info-footer p {
+            margin-bottom: 5px;
+        }
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
+            margin-top: 20px; /* 上の店舗情報との間隔を調整 */
+            padding-top: 10px;
             border-top: 1px solid #eee;
             font-size: 0.8em;
             color: #777;
@@ -105,11 +133,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>あなたのサイトへようこそ！</h1>
-
-        <div class="nav-links">
-            <a href="products.html">商品一覧を見る</a>
-            <a href="#category-section">カテゴリーを見る</a>
+        <h1>スーパーさかや店内<br>木花SHOP 商品カタログ</h1> <div class="nav-links">
+            <a href="categories.html">カテゴリー一覧</a>
+            <a href="cart.html">カートを見る</a>
+            <a href="order_guide.html">ご注文方法</a>
+            <a href="access_info.html">アクセス</a>
             <a href="#contact-info">お問い合わせ</a>
         </div>
 
@@ -120,54 +148,66 @@
         <p id="no-new-products" class="no-products" style="display: none;">新着商品はありません。</p>
 
         <h2 id="news-section">お知らせ</h2>
-        <p>ここに最新のお知らせを記載します。</p>
-        <ul>
-            <li>2025/06/02: ウェブサイトをリニューアルしました！</li>
-            <li>2025/05/20: ゴールデンウィーク休業のお知らせ。</li>
-        </ul>
+        <div id="news-section-content">
+            <p>お知らせを読み込み中...</p>
+            </div>
 
-        <h2 id="category-section">カテゴリー</h2>
-        <p>お探しの商品ジャンルからお選びください。</p>
-        <ul>
-            <li><a href="products.html?category=文房具">文房具</a></li>
-            <li><a href="products.html?category=雑貨">雑貨</a></li>
-            <li><a href="products.html?category=家電">家電</a></li>
-            </ul>
-
-        <h2 id="contact-info">店舗の情報</h2>
-        <p><strong>住所:</strong> 〒XXX-XXXX 福岡県志免町XX-XX-XX</p>
-        <p><strong>営業時間:</strong> 10:00 - 18:00 (平日)</p>
-        <p><strong>定休日:</strong> 土日祝</p>
-        <p><strong>電話番号:</strong> 092-XXX-XXXX</p>
-        <p><strong>Email:</strong> info@yoursite.com</p>
-
-        <h2>ご注文方法</h2>
-        <p>
-            当サイトでは、以下の手順で商品をご注文いただけます。<br>
-            1. 各商品ページで「カートに追加」ボタンをクリックして商品をカートに入れます。<br>
-            2. カートページで注文内容を確認し、数量を変更したり削除したりできます。<br>
-            3. 「注文に進む」ボタンをクリックし、お客様情報を入力します。<br>
-            4. 最終確認ページで内容を確認後、注文を確定します。<br>
-            ご注文確定後、公式LINEで通知が届きます。
-        </p>
+        <h2 id="contact-info">お問い合わせ</h2>
+<p>
+    下記のお問い合わせフォームより、お気軽にお問い合わせください。<br>
+    2営業日以内にご返信いたします。
+</p>
+<p style="text-align: center; margin: 30px 0;">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxMQTfuQFwCC8PTvpuKmYSa33HtbFeCB066W36ZjCaPDwL0g/viewform?usp=sharing&ouid=106949621401010090837" target="_blank" class="nav-links-button" style="
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: #28a745; /* 緑色のボタン */
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 1.2em;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    ">お問い合わせフォームへ</a>
+</p>
+<p style="text-align: center; font-size: 0.9em; color: #666;">
+    お電話やメールでのお問い合わせも承っております。<br>
+    電話番号: 092-938-3263 (スーパーさかや)<br>
+    Email: <a href="mailto:conohana.info@gmail.com">conohana.info@gmail.com</a>
+</p>
     </div>
 
+    <div class="shop-info-footer">
+        <h2>店舗情報</h2>
+        <p><strong>木花SHOP(このはなショップ)</strong></p>
+        <p><strong>住所:</strong> 〒811-2315 福岡県 糟屋郡粕屋町 1丁目19-31, スーパーさかや 店内</p>
+        <p><strong>営業時間:</strong> 9:00 - 22:00</p>
+        <p><strong>定休日:</strong> 水曜日</p>
+        <p><strong>電話番号:</strong> 092-938-3263 (スーパーさかや)</p>
+        <p><strong>Email:</strong> <a href="mailto:conohana.info@gmail.com">conohana.info@gmail.com</a></p>
+        <p>※より詳しいアクセス方法や地図は「アクセス」ページをご覧ください。</p>
+    </div>
+
+
     <footer>
-        <p>&copy; 2025 あなたのサイト名. All rights reserved.</p>
-    </footer>
+        <p>© 2025 木花SHOP. All rights reserved.</p> </footer>
 
     <script>
         // ★ここにあなたのGASウェブアプリのURLを貼り付けてください！★
-        const WEB_APP_API_URL = 'あなたのGASウェブアプリのURL'; // 例: https://script.google.com/macros/s/AKfycbwmb4GfChIkQNvzKM0rqC_jsIPvDH7EDkTrK-RYNCxpeGHoA9f_d-J6nWkF43XJsm2v/exec
+        const WEB_APP_API_URL = 'https://script.google.com/macros/s/AKfycbwmb4GfChIkQNvzKM0rqC_jsIPvDH7EDkTrK-RYNCxpeGHoA9f_d-J6nWkF43XJsm2v/exec'; // 例: https://script.google.com/macros/s/AKfycbwmb4GfChIkQNvzKM0rqC_jsIPvDH7EDkTrK-RYNCxpeGHoA9f_d-J6nWkF43XJsm2v/exec
 
         const newProductsContainer = document.getElementById('new-products-container');
         const noNewProductsMessage = document.getElementById('no-new-products');
         const loadingMessage = document.querySelector('#new-products-container .loading');
 
+        // ★お知らせ表示用のDOM要素を取得★
+        const newsSectionContent = document.getElementById('news-section-content');
+
         async function fetchNewProducts() {
             try {
                 // limit=6 を追加して、新着商品を6件だけ取得
-                const response = await fetch(`${WEB_APP_API_URL}?limit=6`); 
+                // type=products を追加して、GAS側で商品データを返すように指定
+                const response = await fetch(`${WEB_APP_API_URL}?type=products&limit=6`); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -195,9 +235,61 @@
                             console.warn("Google Drive URLからファイルIDを抽出できませんでした:", product.画像URL);
                         }
                     }
-
+                    
                     // 画像が取得できない場合のフォールバック
-                    const imageHtml = imageUrl ? `<img src="<span class="math-inline">\{imageUrl\}" alt\="</span>{product.商品名}">` : '<img src="placeholder.png" alt="画像なし">'; // 仮の代替画像
+                    const imageHtml = imageUrl ? `<img src="${imageUrl}" alt="${product.商品名}">` : '<img src="placeholder.png" alt="画像なし">'; 
 
                     productCard.innerHTML = `
-                        <span class="math-inline">\{imageHtml\}
+                        ${imageHtml}
+                        <h3>${product.商品名}</h3>
+                        <p class="price">価格: ${product.価格}円</p>
+                        <p class="stock ${product.表示状態 === '非表示' ? 'hidden' : 'visible'}">在庫: ${product.現在の在庫数} (${product.表示状態})</p>
+                    `;
+                    newProductsContainer.appendChild(productCard);
+                });
+
+            } catch (error) {
+                console.error('新着商品の取得中にエラーが発生しました:', error);
+                newProductsContainer.innerHTML = `<p class="no-products">新着商品を読み込めませんでした。時間をおいてお試しください。</p>`;
+            }
+        }
+
+        // ★新しく追加する関数：お知らせの取得と表示★
+        async function fetchAnnouncements() {
+            try {
+                // type=announcements を追加して、GAS側でお知らせデータを返すように指定
+                const response = await fetch(`${WEB_APP_API_URL}?type=announcements`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const announcements = await response.json();
+
+                if (announcements.length === 0) {
+                    newsSectionContent.innerHTML = `<p>現在、お知らせはありません。</p>`;
+                    return;
+                }
+
+                const ul = document.createElement('ul');
+                announcements.forEach(announcement => {
+                    const li = document.createElement('li');
+                    // 日付のフォーマットを調整
+                    const date = new Date(announcement.日付);
+                    const formattedDate = date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/');
+                    
+                    li.innerHTML = `<strong>${formattedDate}</strong>: ${announcement.タイトル} - ${announcement.内容}`;
+                    ul.appendChild(li);
+                });
+                newsSectionContent.innerHTML = ''; // 既存の「お知らせを読み込み中...」などをクリア
+                newsSectionContent.appendChild(ul);
+
+            } catch (error) {
+                console.error('お知らせの取得中にエラーが発生しました:', error);
+                newsSectionContent.innerHTML = `<p>お知らせを読み込めませんでした。時間をおいてお試しください。</p>`;
+            }
+        }
+
+        fetchNewProducts(); // ページ読み込み時に新着商品を取得
+        fetchAnnouncements(); // ページ読み込み時にお知らせを取得
+    </script>
+</body>
+</html>
